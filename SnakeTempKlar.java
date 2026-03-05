@@ -11,6 +11,7 @@ public class SnakeTempKlar {
     private int snakeDir = -17;
     private Timer timer;
     public Boolean otherKeys = false;
+    public Boolean myKeysWinkWink = false;
     //    private JPanel[] panels = new JPanel[323];
     private JPanel[] panels = new JPanel[255];
     private Color color = new Color(56, 244, 5);
@@ -72,8 +73,6 @@ public class SnakeTempKlar {
             panel.setBackground(color1);
         }
 
-
-
         LinkedList<Integer> posList = new LinkedList<>();
 
         posList.add(127);
@@ -89,18 +88,39 @@ public class SnakeTempKlar {
             @Override
             public void keyPressed(KeyEvent e) {
                 System.out.println("PRESSED!! " + e.getKeyCode());
-                if (e.getKeyCode()=='!') otherKeys=true;
-                if (otherKeys) {
+                int[] snakedirishishi = {-1,-17,1,17};
+                int wompWomp = 3;
+                if (e.getKeyCode()==' ') otherKeys=true;
+                if (e.getKeyCode() == 76) {
+                    myKeysWinkWink = true;
+                    otherKeys = true;
+                    System.out.println(myKeysWinkWink + " " + otherKeys);
+                }if (otherKeys && !myKeysWinkWink) {
                     if (e.getKeyCode() == 38 && snakeDir != 17) snakeDir = -17;
                     if (e.getKeyCode() == 39 && snakeDir != -1) snakeDir = 1;
                     if (e.getKeyCode() == 40 && snakeDir != -17) snakeDir = 17;
                     if (e.getKeyCode() == 37 && snakeDir != 1) snakeDir = -1;
-                }
-                if (!otherKeys){
-                    if (e.getKeyCode() == 87 && snakeDir != 17) snakeDir = -17;
-                    if (e.getKeyCode() == 68 && snakeDir != -1) snakeDir = 1;
-                    if (e.getKeyCode() == 83 && snakeDir != -17) snakeDir = 17;
-                    if (e.getKeyCode() == 65 && snakeDir != 1) snakeDir = -1;
+                }if (!otherKeys){
+                    if (e.getKeyCode() == 87 && snakeDir != 17) snakeDir = -17;      //Up
+                    if (e.getKeyCode() == 68 && snakeDir != -1) snakeDir = 1;        //Left
+                    if (e.getKeyCode() == 83 && snakeDir != -17) snakeDir = 17;      //Down
+                    if (e.getKeyCode() == 65 && snakeDir != 1) snakeDir = -1;        //Right
+                }if (myKeysWinkWink){
+                    for (int i = 0; i <snakedirishishi.length; i++) {
+                        if (snakedirishishi[i]==snakeDir) wompWomp = i;
+                    }if (e.getKeyCode() == 65){
+                        System.out.println("Active");
+                        if (wompWomp==0) wompWomp = 4;
+                        wompWomp--;
+                        System.out.println(wompWomp);
+                        snakeDir = snakedirishishi[wompWomp];
+                    }if (e.getKeyCode() == 68){
+                        System.out.println("Once Active");
+                        if (wompWomp==3) wompWomp = -1;
+                        wompWomp++;
+                        System.out.println(wompWomp);
+                        snakeDir = snakedirishishi[wompWomp];
+                    }
                 }
             }
         });
