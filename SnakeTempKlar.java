@@ -12,11 +12,12 @@ public class SnakeTempKlar {
     private Timer timer;
     public Boolean otherKeys = false;
     public Boolean myKeysWinkWink = false;
+    public Boolean hisSmallWand = false;
     //    private JPanel[] panels = new JPanel[323];
     private JPanel[] panels = new JPanel[255];
-    private Color color = new Color(56, 244, 5);
-    private Color color1 = new Color(39, 182, 0);
-    private Color color2 = new Color(45, 102, 207);
+    private Color color = new Color(74, 74, 74);
+    private Color color1 = new Color(18, 225, 201);
+    private Color color2 = new Color(16, 227, 1);
     private Color colorB = new Color(0,0,0);
     private int appleEaten = 0;
     public SnakeTempKlar() {
@@ -95,16 +96,20 @@ public class SnakeTempKlar {
                     myKeysWinkWink = true;
                     otherKeys = true;
                     System.out.println(myKeysWinkWink + " " + otherKeys);
-                }if (otherKeys && !myKeysWinkWink) {
+                } if (e.getKeyCode() == 80){
+                    hisSmallWand = true;
+                    otherKeys = true;
+                }
+                if (otherKeys && !myKeysWinkWink) {
                     if (e.getKeyCode() == 38 && snakeDir != 17) snakeDir = -17;
                     if (e.getKeyCode() == 39 && snakeDir != -1) snakeDir = 1;
                     if (e.getKeyCode() == 40 && snakeDir != -17) snakeDir = 17;
                     if (e.getKeyCode() == 37 && snakeDir != 1) snakeDir = -1;
                 }if (!otherKeys){
                     if (e.getKeyCode() == 87 && snakeDir != 17) snakeDir = -17;      //Up
-                    if (e.getKeyCode() == 68 && snakeDir != -1) snakeDir = 1;        //Left
+                    if (e.getKeyCode() == 68 && snakeDir != -1) snakeDir = 1;        //Right
                     if (e.getKeyCode() == 83 && snakeDir != -17) snakeDir = 17;      //Down
-                    if (e.getKeyCode() == 65 && snakeDir != 1) snakeDir = -1;        //Right
+                    if (e.getKeyCode() == 65 && snakeDir != 1) snakeDir = -1;        //Left
                 }if (myKeysWinkWink){
                     for (int i = 0; i <snakedirishishi.length; i++) {
                         if (snakedirishishi[i]==snakeDir) wompWomp = i;
@@ -121,13 +126,29 @@ public class SnakeTempKlar {
                         System.out.println(wompWomp);
                         snakeDir = snakedirishishi[wompWomp];
                     }
+                }if (hisSmallWand){
+                    for (int i = 0; i <snakedirishishi.length; i++) {
+                        if (snakedirishishi[i]==snakeDir) wompWomp = i;
+                    }if (e.getKeyCode() == 37){
+                        System.out.println("Active");
+                        if (wompWomp==0) wompWomp = 4;
+                        wompWomp--;
+                        System.out.println(wompWomp);
+                        snakeDir = snakedirishishi[wompWomp];
+                    }if (e.getKeyCode() == 39){
+                        System.out.println("Once Active");
+                        if (wompWomp==3) wompWomp = -1;
+                        wompWomp++;
+                        System.out.println(wompWomp);
+                        snakeDir = snakedirishishi[wompWomp];
+                    }
                 }
             }
         });
         timer = new Timer (100,e -> {
             int snakeHead = posList.getLast() + snakeDir;
             if (panels[snakeHead].getBackground() == color2) System.out.println(2/0);
-            if (panels[snakeHead].getBackground() == Color.RED) {
+            if (panels[snakeHead].getBackground() == Color.yellow) {
                 appleEaten = 1;
             }
             if (appleEaten == 0) {
@@ -149,7 +170,7 @@ public class SnakeTempKlar {
             if (panels[position].getBackground() != color2) break;
         }
         System.out.println(panels[position].getBackground());
-        panels[position].setBackground(Color.RED);
+        panels[position].setBackground(Color.yellow);
         System.out.println(position);
     }
 
