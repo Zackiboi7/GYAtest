@@ -17,8 +17,7 @@ public class SnakeTempKlar {
     private int turnsMade = 0;
     private int time = 0;
     private Timer timer;
-    public Boolean otherKeys = false;            //
-    public Boolean myKeysWinkWink = false;       //
+    public Boolean otherKeys = false;
     private JPanel[] panels = new JPanel[255];
     private Color color1 = new Color(11, 218, 234);
     private Color color2 = new Color(12, 151, 0);
@@ -40,9 +39,7 @@ public class SnakeTempKlar {
         posList.add(144);
         posList.add(127);
 
-        for (int i = 0; i < posList.size(); i++) {
-            panels[posList.get(i)].setBackground(color2);
-        }
+        for (int i = 0; i < posList.size(); i++) panels[posList.get(i)].setBackground(color2);
         frame.setVisible(true);
         frame.pack();
         frame.addKeyListener(new KeyAdapter() {
@@ -52,11 +49,10 @@ public class SnakeTempKlar {
                 if (e.getKeyCode() == 32) timer.start();
                 int[] snakedirishishi = {-1,-17,1,17};
                 int wompWomp = 3;
-                if (e.getKeyCode()==' ') otherKeys=true;
                 if (e.getKeyCode() == 76) {       //L
-                    myKeysWinkWink = true;
                     otherKeys = true;
                 }
+                if (!otherKeys){
                     if (e.getKeyCode() == 38 && snakeDir != 17) snakeDir = -17;
                     if (e.getKeyCode() == 39 && snakeDir != -1) snakeDir = 1;
                     if (e.getKeyCode() == 40 && snakeDir != -17) snakeDir = 17;
@@ -65,7 +61,8 @@ public class SnakeTempKlar {
                     if (e.getKeyCode() == 68 && snakeDir != -1) snakeDir = 1;        //Right
                     if (e.getKeyCode() == 83 && snakeDir != -17) snakeDir = 17;      //Down
                     if (e.getKeyCode() == 65 && snakeDir != 1) snakeDir = -1;        //Left
-                if (myKeysWinkWink){
+                }
+                if (otherKeys){
                     for (int i = 0; i <snakedirishishi.length; i++) {
                         if (snakedirishishi[i]==snakeDir) wompWomp = i;
                     }if (e.getKeyCode() == 65 || e.getKeyCode() == 37){
@@ -110,20 +107,15 @@ public class SnakeTempKlar {
             y += yChange;
             if (y>7||y<-7||x>8||x<-8) System.out.println(2/0);
             if (panels[snakeHead].getBackground() == color2) System.out.println(2/0);
-            if (panels[snakeHead].getBackground() == Color.yellow) {
-                appleEaten = 1;
-            }
-            if (appleEaten == 0) {
-                panels[posList.pollFirst()].setBackground(color1);
-            } else apple();
+            if (panels[snakeHead].getBackground() == Color.yellow) appleEaten = 1;
+            if (appleEaten == 0) panels[posList.pollFirst()].setBackground(color1);
+            else apple();
             posList.add(snakeHead);
             panels[snakeHead].setBackground(color2);
             appleEaten = 0;
         });
-
         apple();
     }
-
     private void apple() {
         int position = (int) (Math.random() * 255);
         while (true) {
@@ -135,6 +127,5 @@ public class SnakeTempKlar {
         System.out.println(position);
         applesEaten++;
     }
-
     public static void main(String[] args) {new SnakeTempKlar();}
 }
