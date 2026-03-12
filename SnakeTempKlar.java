@@ -1,4 +1,4 @@
-package GymnasieArbete;
+package Personal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +8,10 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class SnakeTempKlar {
+    private int x = 0;
+    private int y = 0;
+    private int xChange = 0;
+    private int yChange = 1;
     private int snakeDir = -17;
     private Timer timer;
     public Boolean otherKeys = false;
@@ -16,8 +20,8 @@ public class SnakeTempKlar {
     //    private JPanel[] panels = new JPanel[323];
     private JPanel[] panels = new JPanel[255];
     private Color color = new Color(74, 74, 74);
-    private Color color1 = new Color(18, 225, 201);
-    private Color color2 = new Color(16, 227, 1);
+    private Color color1 = new Color(11, 218, 234);
+    private Color color2 = new Color(12, 151, 0);
     private Color colorB = new Color(0,0,0);
     private int appleEaten = 0;
     public SnakeTempKlar() {
@@ -76,9 +80,9 @@ public class SnakeTempKlar {
 
         LinkedList<Integer> posList = new LinkedList<>();
 
+        posList.add(161);
+        posList.add(144);
         posList.add(127);
-        posList.add(110);
-        posList.add(93);
 
         for (int i = 0; i < posList.size(); i++) {
             panels[posList.get(i)].setBackground(color2);
@@ -146,7 +150,26 @@ public class SnakeTempKlar {
             }
         });
         timer = new Timer (100,e -> {
+            if (snakeDir == -1) {
+                xChange = -1;
+                yChange = 0;
+            }
+            if (snakeDir == -17) {
+                xChange = 0;
+                yChange = 1;
+            }
+            if (snakeDir == 1) {
+                xChange = 1;
+                yChange = 0;
+            }
+            if (snakeDir == 17) {
+                xChange = 0;
+                yChange = -1;
+            }
             int snakeHead = posList.getLast() + snakeDir;
+            x += xChange;
+            y += yChange;
+            if (y>7||y<-7||x>8||x<-8) System.out.println(2/0);
             if (panels[snakeHead].getBackground() == color2) System.out.println(2/0);
             if (panels[snakeHead].getBackground() == Color.yellow) {
                 appleEaten = 1;
