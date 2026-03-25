@@ -16,6 +16,7 @@ public class SnakeFinishedForNow {
         private int applesEaten = -1;
         private int turnsMade = 0;
         private int time = 0;
+        private int prevDir = 0;
         private Timer timer;
         public Boolean otherKeys = false;
         private JPanel[] panels = new JPanel[255];
@@ -52,35 +53,35 @@ public class SnakeFinishedForNow {
                         otherKeys = true;
                     }
                     if (!otherKeys){
-                        if (e.getKeyCode() == 38 && snakeDir != 17) {
+                        if (e.getKeyCode() == 38 && prevDir != 17) {
                             snakeDir = -17;
                             turnsMade++;
                         }
-                        if (e.getKeyCode() == 39 && snakeDir != -1) {
+                        if (e.getKeyCode() == 39 && prevDir != -1) {
                             snakeDir = 1;
                             turnsMade++;
                         }
-                        if (e.getKeyCode() == 40 && snakeDir != -17) {
+                        if (e.getKeyCode() == 40 && prevDir != -17) {
                             snakeDir = 17;
                             turnsMade++;
                         }
-                        if (e.getKeyCode() == 37 && snakeDir != 1) {
+                        if (e.getKeyCode() == 37 && prevDir != 1) {
                             snakeDir = -1;
                             turnsMade++;
                         }
-                        if (e.getKeyCode() == 87 && snakeDir != 17) {
+                        if (e.getKeyCode() == 87 && prevDir != 17) {
                             snakeDir = -17;      //Up
                             turnsMade++;
                         }
-                        if (e.getKeyCode() == 68 && snakeDir != -1) {
+                        if (e.getKeyCode() == 68 && prevDir != -1) {
                             snakeDir = 1;        //Right
                             turnsMade++;
                         }
-                        if (e.getKeyCode() == 83 && snakeDir != -17) {
+                        if (e.getKeyCode() == 83 && prevDir != -17) {
                             snakeDir = 17;      //Down
                             turnsMade++;
                         }
-                        if (e.getKeyCode() == 65 && snakeDir != 1) {
+                        if (e.getKeyCode() == 65 && prevDir != 1) {
                             snakeDir = -1;        //Left
                             turnsMade++;
                         }
@@ -128,6 +129,7 @@ public class SnakeFinishedForNow {
                     yChange = -1;
                 }
                 int snakeHead = posList.getLast() + snakeDir;
+                prevDir = snakeDir;
                 x += xChange;
                 y += yChange;
                 if (y>7||y<-7||x>8||x<-8) System.out.println(2/0);
